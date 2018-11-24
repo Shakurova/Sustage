@@ -1,0 +1,181 @@
+Rank,Brand,Country,lndustry,score,source
+5,Outotec,Finland,Construction & Engineering,78.30%,Corporate Knights
+9,Siemens,Germany,Industrial Conglomerates,76.70%,Corporate Knights
+10,Samsung SDI,South Korea,"Electronic Equipment, Instruments & Components",75.80%,Corporate Knights
+14,Natura Cosmeticos,Brazil,Personal Products,74.10%,Corporate Knights
+23,McCormick,United States,Food Products,71.50%,Corporate Knights
+26,Intel,United States,Semiconductors & Semiconductor Equipment,71.10%,Corporate Knights
+31,Kesko,Finland,Food & Staples Retailing,70.20%,Corporate Knights
+47,Kering,France,"Textiles, Apparel & Luxury Goods",66.80%,Corporate Knights
+50,Nestle,Switzerland,Food Products,66.60%,Corporate Knights
+55,Sekisui Chemical,Japan,Household Durables,65.60%,Corporate Knights
+57,H & M Hennes & Mauritz,Sweden,Specialty Retail,65.10%,Corporate Knights
+61,Diageo,United Kingdom,Beverages,64.20%,Corporate Knights
+67,Coca-Cola European Partners,United Kingdom,Beverages,63.20%,Corporate Knights
+72,Lenovo Group,China,"Technology Hardware, Storage & Peripherals",62.60%,Corporate Knights
+84,L'Oreal,France,Personal Products,60.70%,Corporate Knights
+87,Orkla,Norway,Food Products,60.40%,Corporate Knights
+1,Valio,Finland,Dairy products,NA,Finland sustainability
+2,Kotimaista,Finland,Dairy products,NA,Finland sustainability
+3,Fazer,Finland,Chocolate,NA,Finland sustainability
+4,Tesla,Finland,NA,NA,Finland sustainability
+5,Partioaitta,Finland,NA,NA,Finland sustainability
+6,Prisma,Finland,NA,NA,Finland sustainability
+7,Fiskars,Finland,NA,NA,Finland sustainability
+8,Myllyn Paras,Finland,NA,NA,Finland sustainability
+9,VR,Finland,NA,NA,Finland sustainability
+10,S-market,Finland,NA,NA,Finland sustainability
+11,Oululainen,Finland,NA,NA,Finland sustainability
+12,Paulig,Finland,NA,NA,Finland sustainability
+13,Finlayson,Finland,NA,NA,Finland sustainability
+14,Saarioinen,Finland,NA,NA,Finland sustainability
+15,Vaasan,Finland,NA,NA,Finland sustainability
+16,K-market,Finland,NA,NA,Finland sustainability
+17,K-supermarket,Finland,NA,NA,Finland sustainability
+18,Kariniemen,Finland,NA,NA,Finland sustainability
+19,Snellman,Finland,NA,NA,Finland sustainability
+20,The Body Shop,Finland,NA,NA,Finland sustainability
+21,K-Citymarket,Finland,NA,NA,Finland sustainability
+22,Pirkka,Finland,NA,NA,Finland sustainability
+23,Sokos Hotels,Finland,NA,NA,Finland sustainability
+24,Arla,Finland,NA,NA,Finland sustainability
+25,Ingman,Finland,NA,NA,Finland sustainability
+26,Kesko,Finland,NA,NA,Finland sustainability
+27,Finnair,Finland,NA,NA,Finland sustainability
+28,Hackman,Finland,NA,NA,Finland sustainability
+29,iittala,Finland,NA,NA,Finland sustainability
+30,S-Pankki,Finland,NA,NA,Finland sustainability
+31,Marimekko,Finland,NA,NA,Finland sustainability
+32,Helen,Finland,NA,NA,Finland sustainability
+33,OP,Finland,NA,NA,Finland sustainability
+34,Atria,Finland,NA,NA,Finland sustainability
+35,Arabia,Finland,NA,NA,Finland sustainability
+36,Lidl,Finland,NA,NA,Finland sustainability
+37,Neste,Finland,NA,NA,Finland sustainability
+38,Apetit,Finland,NA,NA,Finland sustainability
+39,Kotipizza,Finland,NA,NA,Finland sustainability
+40,Vattenfall,Finland,NA,NA,Finland sustainability
+41,S Group,Finland,NA,NA,Finland sustainability
+42,Vantaan Energia,Finland,NA,NA,Finland sustainability
+43,Alko,Finland,NA,NA,Finland sustainability
+44,Hartwall,Finland,NA,NA,Finland sustainability
+45,Panda,Finland,NA,NA,Finland sustainability
+46,HK,Finland,NA,NA,Finland sustainability
+47,Sokos,Finland,NA,NA,Finland sustainability
+48,Meira,Finland,NA,NA,Finland sustainability
+49,Fortum,Finland,NA,NA,Finland sustainability
+50,K-Rauta,Finland,NA,NA,Finland sustainability
+51,Elisa,Finland,NA,NA,Finland sustainability
+52,Hesburger,Finland,NA,NA,Finland sustainability
+53,Pouttu,Finland,NA,NA,Finland sustainability
+54,IKEA,Finland,NA,NA,Finland sustainability
+55,Lähi-Tapiola,Finland,NA,NA,Finland sustainability
+56,Volvo,Finland,NA,NA,Finland sustainability
+57,Tarmo lähikauppa,Finland,NA,NA,Finland sustainability
+58,Omnibus,Finland,NA,NA,Finland sustainability
+59,Scandic,Finland,NA,NA,Finland sustainability
+60,If,Finland,NA,NA,Finland sustainability
+61,St1,Finland,NA,NA,Finland sustainability
+62,Sinebrychoff,Finland,NA,NA,Finland sustainability
+63,ABC,Finland,NA,NA,Finland sustainability
+64,Stockmann,Finland,NA,NA,Finland sustainability
+65,Cumulus,Finland,NA,NA,Finland sustainability
+66,Felix,Finland,NA,NA,Finland sustainability
+67,Findus,Finland,NA,NA,Finland sustainability
+68,Säästöpankki,Finland,NA,NA,Finland sustainability
+69,Verkkokauppa.com,Finland,NA,NA,Finland sustainability
+70,INTERSPORT,Finland,NA,NA,Finland sustainability
+71,Turku Energia,Finland,NA,NA,Finland sustainability
+72,Subway,Finland,NA,NA,Finland sustainability
+73,Rosso,Finland,NA,NA,Finland sustainability
+74,POP Pankki,Finland,NA,NA,Finland sustainability
+75,Holiday Inn,Finland,NA,NA,Finland sustainability
+76,Ilmarinen,Finland,NA,NA,Finland sustainability
+77,DNA,Finland,NA,NA,Finland sustainability
+78,Telia,Finland,NA,NA,Finland sustainability
+79,Aurinkomatkat,Finland,NA,NA,Finland sustainability
+80,Sale,Finland,NA,NA,Finland sustainability
+81,Alepa,Finland,NA,NA,Finland sustainability
+82,Toyota,Finland,NA,NA,Finland sustainability
+83,Radisson Blu,Finland,NA,NA,Finland sustainability
+84,Tokmanni,Finland,NA,NA,Finland sustainability
+85,Varma,Finland,NA,NA,Finland sustainability
+86,Rainbow,Finland,NA,NA,Finland sustainability
+87,Norwegian,Finland,NA,NA,Finland sustainability
+88,Mercedes-Benz,Finland,NA,NA,Finland sustainability
+89,Asko,Finland,NA,NA,Finland sustainability
+90,Clas Ohlson,Finland,NA,NA,Finland sustainability
+91,Vepsäläinen,Finland,NA,NA,Finland sustainability
+92,Coffee House,Finland,NA,NA,Finland sustainability
+93,Gigantti,Finland,NA,NA,Finland sustainability
+94,Aktia,Finland,NA,NA,Finland sustainability
+95,Power,Finland,NA,NA,Finland sustainability
+96,Elo,Finland,NA,NA,Finland sustainability
+97,Sotka,Finland,NA,NA,Finland sustainability
+98,Jumbo,Finland,NA,NA,Finland sustainability
+99,Picnic,Finland,NA,NA,Finland sustainability
+100,Omena Hotels,Finland,NA,NA,Finland sustainability
+101,Matkavekka,Finland,NA,NA,Finland sustainability
+102,Expert,Finland,NA,NA,Finland sustainability
+103,KEVA,Finland,NA,NA,Finland sustainability
+104,Coca-Cola,Finland,NA,NA,Finland sustainability
+105,Tekniset,Finland,NA,NA,Finland sustainability
+106,Audi,Finland,NA,NA,Finland sustainability
+107,Veikon Kone,Finland,NA,NA,Finland sustainability
+108,McDonald´s,Finland,NA,NA,Finland sustainability
+109,Danske Bank,Finland,NA,NA,Finland sustainability
+110,Tjäreborg,Finland,NA,NA,Finland sustainability
+111,Nordea,Finland,NA,NA,Finland sustainability
+112,Jysk,Finland,NA,NA,Finland sustainability
+113,Budget Sport,Finland,NA,NA,Finland sustainability
+114,TUI,Finland,NA,NA,Finland sustainability
+115,Apollomatkat,Finland,NA,NA,Finland sustainability
+116,SAS,Finland,NA,NA,Finland sustainability
+117,Stadium,Finland,NA,NA,Finland sustainability
+118,Pepsi,Finland,NA,NA,Finland sustainability
+119,BMW,Finland,NA,NA,Finland sustainability
+120,TopSport,Finland,NA,NA,Finland sustainability
+121,XXL,Finland,NA,NA,Finland sustainability
+122,Best Western,Finland,NA,NA,Finland sustainability
+123,Biltema,Finland,NA,NA,Finland sustainability
+124,Burger King,Finland,NA,NA,Finland sustainability
+125,Skoda,Finland,NA,NA,Finland sustainability
+126,Handelsbanken,Finland,NA,NA,Finland sustainability
+127,Rax,Finland,NA,NA,Finland sustainability
+128,Lindex,Finland,NA,NA,Finland sustainability
+129,Honda,Finland,NA,NA,Finland sustainability
+130,Volkswagen,Finland,NA,NA,Finland sustainability
+131,Nissan,Finland,NA,NA,Finland sustainability
+132,Byggmax,Finland,NA,NA,Finland sustainability
+133,Teboil,Finland,NA,NA,Finland sustainability
+134,H&M,Finland,NA,NA,Finland sustainability
+135,Ford,Finland,NA,NA,Finland sustainability
+136,Shell,Finland,NA,NA,Finland sustainability
+137,Unilever,Finland,NA,NA,Finland sustainability
+138,Stemma,Finland,NA,NA,Finland sustainability
+139,Masku,Finland,NA,NA,Finland sustainability
+140,KIA,Finland,NA,NA,Finland sustainability
+141,Vila,Finland,NA,NA,Finland sustainability
+142,Opel,Finland,NA,NA,Finland sustainability
+143,Mazda,Finland,NA,NA,Finland sustainability
+144,Hyundai,Finland,NA,NA,Finland sustainability
+145,KappAhl,Finland,NA,NA,Finland sustainability
+146,Peugeot,Finland,NA,NA,Finland sustainability
+147,Citroën,Finland,NA,NA,Finland sustainability
+148,Carlings,Finland,NA,NA,Finland sustainability
+149,Jack&Jones,Finland,NA,NA,Finland sustainability
+150,Subaru,Finland,NA,NA,Finland sustainability
+151,Mitsubishi,Finland,NA,NA,Finland sustainability
+152,Scanburger,Finland,NA,NA,Finland sustainability
+153,Mandatum,Finland,NA,NA,Finland sustainability
+154,BikBok,Finland,NA,NA,Finland sustainability
+155,Seppälä,Finland,NA,NA,Finland sustainability
+156,Rolls,Finland,NA,NA,Finland sustainability
+157,Vero Moda,Finland,NA,NA,Finland sustainability
+158,Renault,Finland,NA,NA,Finland sustainability
+159,Snacky,Finland,NA,NA,Finland sustainability
+160,Zara,Finland,NA,NA,Finland sustainability
+161,Gina Tricot,Finland,NA,NA,Finland sustainability
+162,Suzuki,Finland,NA,NA,Finland sustainability
+163,Fiat,Finland,NA,NA,Finland sustainability
+164,Cubus,Finland,NA,NA,Finland sustainability
