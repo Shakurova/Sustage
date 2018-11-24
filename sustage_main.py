@@ -40,7 +40,9 @@ def badges(product='6410402027521'):
     # Badges Sustainability
     # True means good
     sustainable_brand = brand in scored_brands['Brand']
-    meat_free = all([True for word in subcategory if word not in meat])
+    #meat_free = all([True for word in subcategory if word not in meat])
+    fresh, meat_free, fish_free, dairy_free = product_category_check(data)
+    print(fresh, meat_free, fish_free, dairy_free)
     no_plastic = 'if there is no plastic bag in the list of your purchases'
     is_seasonable = ''
     fair_trade = ''
@@ -54,8 +56,20 @@ def badges(product='6410402027521'):
 
     # return True, False, ...
 
+def product_category_check(product):
+    # default  = [False, False, False, False]
+    pr_id = product["results"][0]["category"]["id"]
+
+    categories = ['8', '13', '14', '15']
+
+    checked = [True if cat == pr_id else False for cat in categories]
+
+    return tuple(checked)
+
+
+
 if __name__ == '__main__':
-    main()
+    badges()
 
     # print(get_products_from_store(store_id_example, 2))
     # print(put_item_into_basket(basket_id, basket_token, '0000040052441', 1, 1))
