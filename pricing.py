@@ -20,18 +20,18 @@ def get_products_from_store(store_id, limit, ean=None, offset=None):
 
 	url = f'https://kesko.azure-api.net/v4/stores/{store_id_example}/products'
 
-	payload = {'limit': str(limit)}
+	payload = {'limit': str(limit), 'offset': str(offset)}
 
 	r = requests.get(url, headers=headers, params=payload)
 
 	return json.loads(r.text)
 
 
-# print(get_products_from_store(store_id_example, 2))
+# print(get_products_from_store(store_id_example, 1000))
 
 
 # def get_product_price(ean):
-	
+
 
 
 
