@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 from yandex_translate import YandexTranslate
 import requests, re
+import json
 from sustage_score import get_sustage_score
 from sustage_main import get_sustage_score_2
 from basket import put_item_into_basket, get_basket, get_product_metadata, get_total_price, apply_badge_discount
@@ -32,6 +33,8 @@ class Person:
         self.recyclable_cert = Badges('recyclable_cert')
         self.plastic_free_cert = Badges('plastic_free_cert')
 
+    def reprJSON(self):
+        return dict(meat_free = self.meat_free, alchohol_free = self.alchohol_free, nutrition = self.nutrition, ingredient = self.ingredient, processing = self.processing, sugar_free = self.sugar_free, sustainable_brand = self.sustainable_brand, organic_brand = self.organic_brand, raw = self.raw, fish_free = self.fish_free, dairy_free = self.dairy_free, plastic_bag_free = self.plastic_bag_free, package_free = self.package_free, organic_cert = self.organic_cert, fair_trade_cert = self.fair_trade_cert, local_cert = self.local_cert, cruelty_free_cert = self.cruelty_free_cert, animal_welfare_cert = self.animal_welfare_cert, environmentally_friendly_cert = self.environmentally_friendly_cert, recyclable_cert = self.recyclable_cert, plastic_free_cert = self.plastic_free_cert) 
         # self.discount = 0
 
     def badges_update(self, purchase_summary):
@@ -115,6 +118,16 @@ class Badges:
     def enlight_badge(self):
         if self.value == self.treshold:
             self.usable = True
+
+    def reprJSON(self):
+        return dict(description=self.description, treshold=self.treshold, value=self.value, usable=self.usable)
+
+class ComplexEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if hasattr(obj,'reprJSON'):
+            return obj.reprJSON()
+        else:
+            return json.JSONEncoder.default(self, obj)
 
 
 def test(person):

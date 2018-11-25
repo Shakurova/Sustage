@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from basket import generate_basket_from_eans, get_basket, put_item_into_basket, get_total_price
-from badges import save_receipt
+from badges import save_receipt, ComplexEncoder
+import json
 
 headers = {
     "Content-Type": "application/json",
@@ -33,13 +34,12 @@ def person():
     response = request.get_json()
     result = save_receipt(response['eans_list'])
     # app.logger.info(result.__dict__.description)
-    for badge in result.__dict__:
-        app.logger.info(badge, result.__dict__[badge].__dict__)
-    app.logger.info(vars(result))
-    serialized = [vars(result[key]) for key in vars(result)]
-
-    app.logger.info(serialized)
-    return jsonify(serialized), 200, headers
+    # for badge in result.__dict__:
+    #     app.logger.info(badge, result.__dict__[badge].__dict__)
+    # app.logger.info(vars(result))
+    # serialized = [vars(result[key]) for key in vars(result)]
+    out = json.dumps(result.reprJSON(), cls=ComplexEncoder)
+    return out, 200, headers
 
 if __name__ == '__main__':
     app.run(debug=True)
