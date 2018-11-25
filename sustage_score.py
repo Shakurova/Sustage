@@ -16,12 +16,14 @@ ean = '6410405060457'
 def get_sustage_score(ean):
     sustage_dict = {}
 
-    try:
-        market_name = get_product_metadata(ean)['results'][0]['marketingName']['english']
-    except:
-        fi_name = get_product_metadata(ean)['results'][0]['marketingName']['finnish']
-        market_name = translate.translate(fi_name, 'fi-en')['text']
-
+    if get_product_metadata(ean)['results']:
+        try:
+            market_name = get_product_metadata(ean)['results'][0]['marketingName']['english']
+        except:
+            fi_name = get_product_metadata(ean)['results'][0]['marketingName']['finnish']
+            market_name = translate.translate(fi_name, 'fi-en')['text']
+    else:
+        return 0
     res = es.search(index="groceries", body=
     {
         "min_score": 0.1,

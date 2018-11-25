@@ -3,6 +3,7 @@ from yandex_translate import YandexTranslate
 import requests, re
 from sustage_score import get_sustage_score
 from sustage_main import get_sustage_score_2
+from basket import put_item_into_basket, get_basket, get_product_metadata, get_total_price, apply_badge_discount
 
 
 class Person:
@@ -31,7 +32,7 @@ class Person:
         self.recyclable_cert = Badges('recyclable_cert')
         self.plastic_free_cert = Badges('plastic_free_cert')
 
-        self.discount = 0
+        # self.discount = 0
 
     def badges_update(self, purchase_summary):
         """If a person gets the badge"""
@@ -76,21 +77,25 @@ class Purchase:
 
     def check_purchase(self, receipt_data):
         for item_ean in receipt_data:
-            sustage_dict = get_sustage_score(item_ean)
-            sustage_dict_2 = get_sustage_score_2(item_ean)
-            # matching
-            for key in self.__dict__:
-                if key == 'organic_cert' and sustage_dict_2['raw']:
-                    self.__dict__[key] = True if sustage_dict_2['organic_cert'] else False
-                elif key.endswith('_cert'):
-                    for cert_descr in sustage_dict['certificates']:
-                        key_set = re.findall(key[:-5], cert_descr)
-                        self.__dict__[key] = True if key_set else False
-                else:
-                    try:
-                        self.__dict__[key] = sustage_dict[key]
-                    except:
-                        self.__dict__[key] = sustage_dict_2[key]
+            if get_product_metadata(item_ean)['results']:
+
+                sustage_dict = get_sustage_score(item_ean)
+                sustage_dict_2 = get_sustage_score_2(item_ean)
+                # matching
+                for key in self.__dict__:
+                    if key == 'organic_cert' and sustage_dict_2['raw']:
+                        self.__dict__[key] = True if sustage_dict_2['organic_cert'] else False
+                    elif key.endswith('_cert'):
+                        for cert_descr in sustage_dict['certificates']:
+                            key_set = re.findall(key[:-5], cert_descr)
+                            self.__dict__[key] = True if key_set else False
+                    else:
+                        try:
+                            if key in sustage_dict:
+                                self.__dict__[key] = sustage_dict[key]
+                        except:
+                            if key in sustage_dict_2:
+                                self.__dict__[key] = sustage_dict_2[key]
 
 
 class Badges:
@@ -147,6 +152,10 @@ if __name__ == "__main__":
     # test(person)
 
 
-
+def save_receipt(receipts):
+    person = Person()
+    purchase = Purchase(receipts)
+    person.badges_update(purchase)
+    return person 
 
 
