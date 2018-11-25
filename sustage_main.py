@@ -82,8 +82,9 @@ def product_category_check_fresh(product):
 
 def get_brand_name(s1, s2):
     """ Return brand. """
+    print('merge', s1, s2)
     out = ""
-    for word in range(len(s1.split())):
+    for word in range(min(len(s1.split()), len(s2.split()))): # take the longest
         w1 = s1.split()[word]
         w2 = s2.split()[word]
         if w1 == w2:
@@ -117,40 +118,41 @@ def fill_in_tx(data):
 def get_sustage_score_2(product='7622300336738'):
     outputs = {}
 
-
     data = get_product_metadata(product)
+    if data['results']:
+        # Product Info
+        brand = data['results'][0]['brand'] if 'brand' is data['results'][0] else ''
+        finnish = data['results'][0]['labelName']['finnish'] if 'finnish' in data['results'][0]['labelName'] else ''
+        swedish = data['results'][0]['labelName']['swedish'] if 'swedish' in data['results'][0]['labelName'] else ''
+        if finnish and swedish:
+            brand = brand if brand else get_brand_name(finnish, swedish)
 
-    # Product Info
-    name = data['results'][0]['labelName']['english']
-    brand = data['results'][0]['brand'] if 'brand' is data['results'][0] else ''
-    finnish = data['results'][0]['labelName']['finnish']
-    swedish = data['results'][0]['labelName']['swedish']
-    brand = brand if brand else get_brand_name(finnish, swedish)
-    ean = data['results'][0]['ean']
-    # print('NAME', name, brand, ean)
+        ean = data['results'][0]['ean']
+        outputs['ean'] = ean
+        outputs['name'] = finnish
 
-    # Badges
-    TX_dict = fill_in_tx(data)
-    TX_KIEOMI = TX_dict['TX_KIEOMI'] if 'TX_KIEOMI' in TX_dict else ''
-    TX_YMPMER = TX_dict['TX_YMPMER'] if 'TX_YMPMER' in TX_dict else ''
-    TX_PAKMER = TX_dict['TX_PAKMER'] if 'TX_PAKMER' in TX_dict else ''
-    TX_RAVOMI = TX_dict['TX_RAVOMI'] if 'TX_RAVOMI' in TX_dict else ''
+        # Badges
+        TX_dict = fill_in_tx(data)
+        TX_KIEOMI = TX_dict['TX_KIEOMI'] if 'TX_KIEOMI' in TX_dict else ''
+        TX_YMPMER = TX_dict['TX_YMPMER'] if 'TX_YMPMER' in TX_dict else ''
+        TX_PAKMER = TX_dict['TX_PAKMER'] if 'TX_PAKMER' in TX_dict else ''
+        TX_RAVOMI = TX_dict['TX_RAVOMI'] if 'TX_RAVOMI' in TX_dict else ''
 
-    outputs['alchohol_free'] = data['results'][0]['isAlcohol'] == False
-    outputs['sustainable_brand'] = brand in scored_brands['Brand']
-    outputs['organic_brand'] = 'Organic' in finnish_brands[brand.lower()] if brand.lower() in finnish_brands else None
-    outputs['raw'] = product_category_check_fresh(data)  # healthy choices
-    outputs['meat_free'] = product_category_check(data)[0]
-    outputs['fish_free'] = product_category_check(data)[1]
-    outputs['dairy_free'] = product_category_check(data)[2]
-    outputs['plastic_bag_free'] = ean != '6410405187734'
-    outputs['package_free'] = data['results'][0]['pricingUnit'] != 'pussi'
-    outputs['plastic_free_cert'] = 'Muovipakkausjäte' not in TX_KIEOMI
+        outputs['alchohol_free'] = data['results'][0]['isAlcohol'] == False
+        outputs['sustainable_brand'] = brand in scored_brands['Brand']
+        outputs['organic_brand'] = 'Organic' in finnish_brands[brand.lower()] if brand.lower() in finnish_brands else None
+        outputs['raw'] = product_category_check_fresh(data)  # healthy choices
+        outputs['meat_free'] = product_category_check(data)[0]
+        outputs['fish_free'] = product_category_check(data)[1]
+        outputs['dairy_free'] = product_category_check(data)[2]
+        outputs['plastic_bag_free'] = ean != '6410405187734'
+        outputs['packaged_food_good'] = data['results'][0]['pricingUnit'] != 'pussi' if 'pricingUnit' in data['results'][0] else None
+        outputs['plastic_free_cert'] = 'Muovipakkausjäte' not in TX_KIEOMI
 
-    outputs['organic_cert'] = any([True for o in TX_YMPMER if o in organic_list])
-    outputs['fair_trade_cert'] = any([True for o in TX_YMPMER if o in fair_list])
-    outputs['environmentally_friendly_cert'] = any([True for o in TX_YMPMER if o in env_list])
-    outputs['recyclable_cert'] = 'Materiaalikierrätys' in TX_KIEOMI or 'Kierrätysmerkki' in TX_KIEOMI
+        outputs['organic_cert'] = any([True for o in TX_YMPMER if o in organic_list])
+        outputs['fair_trade_cert'] = any([True for o in TX_YMPMER if o in fair_list])
+        outputs['environmentally_friendly_cert'] = any([True for o in TX_YMPMER if o in env_list])
+        outputs['recyclable_cert'] = 'Materiaalikierrätys' in TX_KIEOMI or 'Kierrätysmerkki' in TX_KIEOMI
 
     return outputs
 
