@@ -32,6 +32,7 @@ def items():
 @app.route('/person', methods=["POST"])
 def person():
     response = request.get_json()
+    app.logger.info(response)
     result = save_receipt(response['eans_list'])
     # app.logger.info(result.__dict__.description)
     # for badge in result.__dict__:

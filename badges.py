@@ -110,6 +110,8 @@ class Purchase:
     def check_purchase(self, receipt_data):
         self.purchase_array = []
         for item_ean in receipt_data:
+            print(item_ean)
+            print(get_product_metadata(item_ean))
             if get_product_metadata(item_ean)['results']:
                 sustage_dict = get_sustage_score(item_ean)
                 sustage_dict_2 = get_sustage_score_2(item_ean)
