@@ -59,7 +59,7 @@ def get_sustage_score(ean):
     # Get additional info
     response = requests.get('http://api.ewg.org/food/' + upc + '?uuid=ddf62941-8f87-4b3e-bb4e-e5c48947d490')
     data = response.json()
-    sustage_dict["added_sugar"] = data["nutrients"]["has_added_sugar"]
+    sustage_dict["sugar_free"] = data["nutrients"]["has_added_sugar"]
     # print("-" * 10)
     # for page in data["page_details"]:
     #     if page["positive_negative"] in ['negative', 'positive']:

@@ -114,11 +114,9 @@ def fill_in_tx(data):
     return main_d
 
 
-def badges(product='7622300336738'):
+def get_sustage_score_2(product='7622300336738'):
     outputs = {}
 
-    positive = ['buy_organic', 'fair_trade', 'buy_local', 'is_seasonable', '']
-    negative = ['meat_free', 'no_plastic']
 
     data = get_product_metadata(product)
 
@@ -129,7 +127,7 @@ def badges(product='7622300336738'):
     swedish = data['results'][0]['labelName']['swedish']
     brand = brand if brand else get_brand_name(finnish, swedish)
     ean = data['results'][0]['ean']
-    print('NAME', name, brand, ean)
+    # print('NAME', name, brand, ean)
 
     # Badges
     TX_dict = fill_in_tx(data)
@@ -140,22 +138,22 @@ def badges(product='7622300336738'):
 
     outputs['alchohol_free'] = data['results'][0]['isAlcohol'] == False
     outputs['sustainable_brand'] = brand in scored_brands['Brand']
-    outputs['buy_organic'] = 'Organic' in finnish_brands[brand.lower()] if brand.lower() in finnish_brands else None
-    outputs['fresh'] = product_category_check_fresh(data)  # healthy choices
+    outputs['organic_brand'] = 'Organic' in finnish_brands[brand.lower()] if brand.lower() in finnish_brands else None
+    outputs['raw'] = product_category_check_fresh(data)  # healthy choices
     outputs['meat_free'] = product_category_check(data)[0]
     outputs['fish_free'] = product_category_check(data)[1]
     outputs['dairy_free'] = product_category_check(data)[2]
-    outputs['no_plastic_bag'] = ean != '6410405187734'
-    outputs['packaged_food_good'] = data['results'][0]['pricingUnit'] != 'pussi'
-    outputs['plastic_waste_free'] = 'Muovipakkausjäte' not in TX_KIEOMI
+    outputs['plastic_bag_free'] = ean != '6410405187734'
+    outputs['package_free'] = data['results'][0]['pricingUnit'] != 'pussi'
+    outputs['plastic_free_cert'] = 'Muovipakkausjäte' not in TX_KIEOMI
 
     outputs['organic_cert'] = any([True for o in TX_YMPMER if o in organic_list])
     outputs['fair_trade_cert'] = any([True for o in TX_YMPMER if o in fair_list])
-    outputs['env_friendly_cert'] = any([True for o in TX_YMPMER if o in env_list])
+    outputs['environmentally_friendly_cert'] = any([True for o in TX_YMPMER if o in env_list])
     outputs['recyclable_cert'] = 'Materiaalikierrätys' in TX_KIEOMI or 'Kierrätysmerkki' in TX_KIEOMI
 
     return outputs
 
 if __name__ == '__main__':
     for e in eans:
-        print(badges(product=e))
+        print(get_sustage_score_2(product=e))
