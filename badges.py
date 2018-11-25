@@ -14,7 +14,7 @@ class Person:
         self.alchohol_free = Badges('alcohol_free')
         self.nutrition = Badges('nutrition')    # healthy choices badge
         self.ingredient = Badges('ingredient')  # sustainable ingredients
-        self.processing = Badges('processing')  # processed_free
+        self.processing = Badges('processing', 15)  # processed_free
         self.sugar_free = Badges('sugar_free', 14)
         self.sustainable_brand = Badges('sustainable_brand')
         self.organic_brand = Badges('organic_brands')
@@ -22,7 +22,7 @@ class Person:
         self.fish_free = Badges('fish_free')
         self.dairy_free = Badges('dairy_free')
         self.plastic_bag_free = Badges('plastic_bag_free')
-        self.package_free = Badges('plastic_free')
+        self.package_free = Badges('plastic_free', 7)
 
         self.organic_cert = Badges('organic_cert')
         self.fair_trade_cert = Badges('fair_trade')
@@ -34,9 +34,9 @@ class Person:
         self.plastic_free_cert = Badges('plastic_free_cert')
 
         # self.discount = 0
+
     def reprJSON(self):
         return dict(meat_free = self.meat_free, alchohol_free = self.alchohol_free, nutrition = self.nutrition, ingredient = self.ingredient, processing = self.processing, sugar_free = self.sugar_free, sustainable_brand = self.sustainable_brand, organic_brand = self.organic_brand, raw = self.raw, fish_free = self.fish_free, dairy_free = self.dairy_free, plastic_bag_free = self.plastic_bag_free, package_free = self.package_free, organic_cert = self.organic_cert, fair_trade_cert = self.fair_trade_cert, local_cert = self.local_cert, cruelty_free_cert = self.cruelty_free_cert, animal_welfare_cert = self.animal_welfare_cert, environmentally_friendly_cert = self.environmentally_friendly_cert, recyclable_cert = self.recyclable_cert, plastic_free_cert = self.plastic_free_cert)
-        # self.discount = 0
 
     def badges_update(self, purchase_summary):
         """If a person gets the badge"""
@@ -122,13 +122,10 @@ class Purchase:
                             key_set = re.findall(key[:-5], cert_descr)
                             self.__dict__[key] = True if key_set else False
                     else:
-                        try:
-                            if key in sustage_dict:
-                                self.__dict__[key] = sustage_dict[key]
-                        except:
-                            if key in sustage_dict_2:
-                                self.__dict__[key] = sustage_dict_2[key]
-            # purchase_array.append(list(self.__dict__.values()))
+                        if key in sustage_dict:
+                            self.__dict__[key] = sustage_dict[key]
+                        elif key in sustage_dict_2:
+                            self.__dict__[key] = sustage_dict_2[key]
             self.purchase_array.append(self.__dict__)
 
 
@@ -178,13 +175,13 @@ if __name__ == "__main__":
     key = '0187dc68f47e49e9b97fc765bfd56716'
     content_type = 'application/json'
 
-    receipt_data = ['7622300336738', '6410405060457', '6006258002388', '2000512100005']
+    receipt_data = ['6410405041548']
 
     # we have data for one person for one purchase
     person = Person()
     purchase = Purchase(receipt_data)
     person.badges_update(purchase)
-    # print("=" * 20)
+    print("=" * 20)
     test(person)
     # purchase = Purchase(True, True, True, True)
     # person.badges_update(purchase)
