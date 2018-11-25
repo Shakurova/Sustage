@@ -1,5 +1,4 @@
 from elasticsearch import Elasticsearch
-from basket import get_product_metadata
 from yandex_translate import YandexTranslate
 import requests, re
 from sustage_score import get_sustage_score
@@ -48,7 +47,7 @@ class Person:
 
 
 class Purchase:
-    def __init__(self):#, receipt_data):
+    def __init__(self, receipt_data):
         """If purchase was sustainable"""
         self.meat_free = False
         self.alchohol_free = False
@@ -73,26 +72,25 @@ class Purchase:
         self.recyclable_cert = False
         self.plastic_free_cert = False
 
-        self.check_purchase()#receipt_data)
+        self.check_purchase(receipt_data)
 
-    def check_purchase(self):#, receipt_data):
-        # for item in receipt_data:
-        item_ean = '6410405060457'
-        sustage_dict = get_sustage_score(item_ean)
-        sustage_dict_2 = get_sustage_score_2(item_ean)
-        # matching
-        for key in self.__dict__:
-            if key == 'organic_cert' and sustage_dict_2['raw']:
-                self.__dict__[key] = True if sustage_dict_2['organic_cert'] else False
-            elif key.endswith('_cert'):
-                for cert_descr in sustage_dict['certificates']:
-                    key_set = re.findall(key[:-5], cert_descr)
-                    self.__dict__[key] = True if key_set else False
-            else:
-                try:
-                    self.__dict__[key] = sustage_dict[key]
-                except:
-                    self.__dict__[key] = sustage_dict_2[key]
+    def check_purchase(self, receipt_data):
+        for item_ean in receipt_data:
+            sustage_dict = get_sustage_score(item_ean)
+            sustage_dict_2 = get_sustage_score_2(item_ean)
+            # matching
+            for key in self.__dict__:
+                if key == 'organic_cert' and sustage_dict_2['raw']:
+                    self.__dict__[key] = True if sustage_dict_2['organic_cert'] else False
+                elif key.endswith('_cert'):
+                    for cert_descr in sustage_dict['certificates']:
+                        key_set = re.findall(key[:-5], cert_descr)
+                        self.__dict__[key] = True if key_set else False
+                else:
+                    try:
+                        self.__dict__[key] = sustage_dict[key]
+                    except:
+                        self.__dict__[key] = sustage_dict_2[key]
 
 
 class Badges:
@@ -131,12 +129,13 @@ if __name__ == "__main__":
     key = '0187dc68f47e49e9b97fc765bfd56716'
     content_type = 'application/json'
 
+    receipt_data = ['6410405060457']
+
     # we have data for one person for one purchase
     person = Person()
-    test(person)
-    purchase = Purchase() #Purchase(receipt_data)
+    purchase = Purchase(receipt_data)
     person.badges_update(purchase)
-    print("=" * 20)
+    # print("=" * 20)
     test(person)
     # purchase = Purchase(True, True, True, True)
     # person.badges_update(purchase)
