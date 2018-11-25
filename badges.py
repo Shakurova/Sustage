@@ -60,14 +60,14 @@ class Person:
     def top(self, purchase_array, top_key):
         """If more than 30% of one purchase"""
         sum_True = sum([1 for item in purchase_array if top_key in item and item[top_key]])
-        if float(sum_True) / len(receipt_data) > 0.3:
+        if float(sum_True) / len(purchase_array) > 0.3:
             return True
         return False
 
     def all(self, purchase_array, all_key):
         """If all in one purchase"""
         sum_True = sum([1 for item in purchase_array if all_key in item and item[all_key]])
-        if sum_True == len(receipt_data):
+        if sum_True == len(purchase_array):
             return True
         return False
 
