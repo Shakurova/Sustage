@@ -27,9 +27,13 @@ def get_products_from_store(store_id, limit, ean=None, offset=None):
 	return json.loads(r.text)
 
 
-# print(get_products_from_store(store_id_example, 1000))
+# print(get_products_from_store("K171", 1000, offset=0).keys())
 
 
+def get_all_eans_otaniemi():
+	return set(get_products_from_store("K171", 1000, offset=0).keys())
+
+print(get_all_eans_otaniemi())
 # def get_product_price(ean):
 
 
