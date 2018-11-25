@@ -1,7 +1,6 @@
 import pandas as pd
 import json
-from pricing import get_products_from_store
-from basket import put_item_into_basket, get_basket, get_product_metadata, get_total_price, apply_badge_discount
+from basket import get_product_metadata
 
 key = '0187dc68f47e49e9b97fc765bfd56716'
 basket_id = '39693627'
@@ -59,11 +58,11 @@ organic_list = ['Luomutarkastajan hyväksyntä', 'EU:n luomutunnus (lehti)', 'Mu
 env_list = ['FSC-sertifikaatti (Forrest Stewardship Council)', 'Pohjoismainen ympäristömerkki (Joutsen)', 'Soil Association -merkki', 'Rainforest alliance certified (Sammakko-merkki)', 'Forest stewardship council mix', 'EU:n ympäristömerkki (EU-kukka)', 'UTZ_certification', 'PEFC-logo', 'EKO']
 fair_list = ['Reilu Kauppa', 'Fair For Life']
 
-def main(product='721865095627'):
-    print(get_product_metadata(product)['results'][0].keys())
-    for k in get_product_metadata(product)['results'][0]:
-        print(k, get_product_metadata(product)['results'][0][k])
-        print('-'*10)
+# def main(product='721865095627'):
+#     print(get_product_metadata(product)['results'][0].keys())
+#     for k in get_product_metadata(product)['results'][0]:
+#         print(k, get_product_metadata(product)['results'][0][k])
+#         print('-'*10)
 
 
 def product_category_check(product):
@@ -82,7 +81,7 @@ def product_category_check_fresh(product):
 
 def get_brand_name(s1, s2):
     """ Return brand. """
-    print('merge', s1, s2)
+    # print('merge', s1, s2)
     out = ""
     for word in range(min(len(s1.split()), len(s2.split()))): # take the longest
         w1 = s1.split()[word]

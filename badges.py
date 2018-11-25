@@ -4,7 +4,7 @@ import requests, re
 import json
 from sustage_score import get_sustage_score
 from sustage_main import get_sustage_score_2
-from basket import put_item_into_basket, get_basket, get_product_metadata, get_total_price, apply_badge_discount
+from basket import get_product_metadata
 
 
 class Person:
@@ -15,10 +15,10 @@ class Person:
         self.nutrition = Badges('nutrition')    # healthy choices badge
         self.ingredient = Badges('ingredient')  # sustainable ingredients
         self.processing = Badges('processing')  # processed_free
-        self.sugar_free = Badges('sugar_free')
+        self.sugar_free = Badges('sugar_free', 14)
         self.sustainable_brand = Badges('sustainable_brand')
         self.organic_brand = Badges('organic_brands')
-        self.raw = Badges('raw')
+        self.raw = Badges('raw', 10)
         self.fish_free = Badges('fish_free')
         self.dairy_free = Badges('dairy_free')
         self.plastic_bag_free = Badges('plastic_bag_free')
@@ -33,21 +33,50 @@ class Person:
         self.recyclable_cert = Badges('recyclable_cert')
         self.plastic_free_cert = Badges('plastic_free_cert')
 
+        # self.discount = 0
     def reprJSON(self):
-        return dict(meat_free = self.meat_free, alchohol_free = self.alchohol_free, nutrition = self.nutrition, ingredient = self.ingredient, processing = self.processing, sugar_free = self.sugar_free, sustainable_brand = self.sustainable_brand, organic_brand = self.organic_brand, raw = self.raw, fish_free = self.fish_free, dairy_free = self.dairy_free, plastic_bag_free = self.plastic_bag_free, package_free = self.package_free, organic_cert = self.organic_cert, fair_trade_cert = self.fair_trade_cert, local_cert = self.local_cert, cruelty_free_cert = self.cruelty_free_cert, animal_welfare_cert = self.animal_welfare_cert, environmentally_friendly_cert = self.environmentally_friendly_cert, recyclable_cert = self.recyclable_cert, plastic_free_cert = self.plastic_free_cert) 
+        return dict(meat_free = self.meat_free, alchohol_free = self.alchohol_free, nutrition = self.nutrition, ingredient = self.ingredient, processing = self.processing, sugar_free = self.sugar_free, sustainable_brand = self.sustainable_brand, organic_brand = self.organic_brand, raw = self.raw, fish_free = self.fish_free, dairy_free = self.dairy_free, plastic_bag_free = self.plastic_bag_free, package_free = self.package_free, organic_cert = self.organic_cert, fair_trade_cert = self.fair_trade_cert, local_cert = self.local_cert, cruelty_free_cert = self.cruelty_free_cert, animal_welfare_cert = self.animal_welfare_cert, environmentally_friendly_cert = self.environmentally_friendly_cert, recyclable_cert = self.recyclable_cert, plastic_free_cert = self.plastic_free_cert)
         # self.discount = 0
 
     def badges_update(self, purchase_summary):
         """If a person gets the badge"""
-        negs = ['meat_free', 'alchohol_free', 'fish_free', 'dairy_free', 'plastic_bag_free']
-        for behaviour in purchase_summary.__dict__:
-            if purchase_summary.__dict__[behaviour]:
-                # conditionally more complex later
-                self.__dict__[behaviour].bvalue_increment()
+        for top_el in ['sugar_free', 'raw', 'processing', 'package_free', 'sustainable_brand']:
+            if self.top(purchase_summary.purchase_array, top_el):
+                self.__dict__[top_el].bvalue_increment()
+        for all_el in ['meat_free', 'alchohol_free', 'fish_free', 'dairy_free', 'plastic_bag_free']:
+            if self.all(purchase_summary.purchase_array, all_el):
+                self.__dict__[all_el].bvalue_increment()
             else:
-                if behaviour in negs:
-                    self.__dict__[behaviour].bvalue_decrement()
-            self.__dict__[behaviour].enlight_badge()
+                self.__dict__[all_el].bvalue_decrement()
+        for any_el in ['nutrition', 'ingredient', 'organic_brand',
+                       'organic_cert', 'fair_trade_cert', 'local_cert', 'cruelty_free_cert', 'animal_welfare_cert',
+                       'environmentally_friendly_cert', 'recyclable_cert', 'plastic_free_cert']:
+            if self.any(purchase_summary.purchase_array, any_el):
+                self.__dict__[any_el].bvalue_increment()
+        for behaviour in purchase_summary.__dict__:
+            if behaviour != 'purchase_array':
+                self.__dict__[behaviour].enlight_badge()
+
+    def top(self, purchase_array, top_key):
+        """If more than 30% of one purchase"""
+        sum_True = sum([1 for item in purchase_array if item[top_key] == True])
+        if float(sum_True) / len(receipt_data) > 0.3:
+            return True
+        return False
+
+    def all(self, purchase_array, all_key):
+        """If all in one purchase"""
+        sum_True = sum([1 for item in purchase_array if item[all_key] == True])
+        if sum_True == len(receipt_data):
+            return True
+        return False
+
+    def any(self, purchase_array, any_key):
+        """If any in one purchase"""
+        sum_True = sum([1 for item in purchase_array if item[any_key] == True])
+        if sum_True > 0:
+            return True
+        return False
 
 
 class Purchase:
@@ -58,14 +87,14 @@ class Purchase:
         self.nutrition = False
         self.ingredient = False
         self.processing = False
-        self.sugar_free = False
+        self.sugar_free = False #self.top(receipt_data, 6)
         self.sustainable_brand = False
         self.organic_brand = False
         self.raw = False
-        self.fish_free = False
+        self.fish_free = False  # top(receipt)
         self.dairy_free = False
         self.plastic_bag_free = False
-        self.package_free = False
+        self.package_free = False  #False
 
         self.organic_cert = False
         self.fair_trade_cert = False
@@ -79,9 +108,9 @@ class Purchase:
         self.check_purchase(receipt_data)
 
     def check_purchase(self, receipt_data):
+        self.purchase_array = []
         for item_ean in receipt_data:
             if get_product_metadata(item_ean)['results']:
-
                 sustage_dict = get_sustage_score(item_ean)
                 sustage_dict_2 = get_sustage_score_2(item_ean)
                 # matching
@@ -99,6 +128,8 @@ class Purchase:
                         except:
                             if key in sustage_dict_2:
                                 self.__dict__[key] = sustage_dict_2[key]
+            # purchase_array.append(list(self.__dict__.values()))
+            self.purchase_array.append(self.__dict__)
 
 
 class Badges:
@@ -147,7 +178,7 @@ if __name__ == "__main__":
     key = '0187dc68f47e49e9b97fc765bfd56716'
     content_type = 'application/json'
 
-    receipt_data = ['6410405060457']
+    receipt_data = ['7622300336738', '6410405060457', '6006258002388', '2000512100005']
 
     # we have data for one person for one purchase
     person = Person()
@@ -169,6 +200,5 @@ def save_receipt(receipts):
     person = Person()
     purchase = Purchase(receipts)
     person.badges_update(purchase)
-    return person 
-
+    return person
 

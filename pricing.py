@@ -33,7 +33,7 @@ def get_products_from_store(store_id, limit, ean=None, offset=None):
 def get_all_eans_otaniemi():
 	return set(get_products_from_store("K171", 1000, offset=0).keys())
 
-print(get_all_eans_otaniemi())
+# print(get_all_eans_otaniemi())
 # def get_product_price(ean):
 
 
