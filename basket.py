@@ -91,7 +91,7 @@ def apply_badge_discount(current_price, discount_percentage):
 # the second random one and show what happens with the discount.
 
 
-def generate_random_basket(store_id, how_many_products, eans_pool):
+def generate_random_basket(store_id, how_many_products, eans_pool=get_products_from_store("K171", 1, offset=0).keys()):
 
 	url = f'https://kesko.azure-api.net/baskets/{store_id}'
 
