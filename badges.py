@@ -10,7 +10,7 @@ from basket import get_product_metadata
 class Person:
     def __init__(self):
         # self.sustage_score = 0
-        self.meat_free = Badges('meat_free')
+        self.meat_free = Badges('meat_free', 14)
         self.alchohol_free = Badges('alcohol_free')
         self.nutrition = Badges('nutrition')    # healthy choices badge
         self.ingredient = Badges('ingredient')  # sustainable ingredients
@@ -59,21 +59,21 @@ class Person:
 
     def top(self, purchase_array, top_key):
         """If more than 30% of one purchase"""
-        sum_True = sum([1 for item in purchase_array if item[top_key] == True])
+        sum_True = sum([1 for item in purchase_array if top_key in item and item[top_key]])
         if float(sum_True) / len(receipt_data) > 0.3:
             return True
         return False
 
     def all(self, purchase_array, all_key):
         """If all in one purchase"""
-        sum_True = sum([1 for item in purchase_array if item[all_key] == True])
+        sum_True = sum([1 for item in purchase_array if all_key in item and item[all_key]])
         if sum_True == len(receipt_data):
             return True
         return False
 
     def any(self, purchase_array, any_key):
         """If any in one purchase"""
-        sum_True = sum([1 for item in purchase_array if item[any_key] == True])
+        sum_True = sum([1 for item in purchase_array if any_key in item and item[any_key]])
         if sum_True > 0:
             return True
         return False
@@ -114,19 +114,20 @@ class Purchase:
                 sustage_dict = get_sustage_score(item_ean)
                 sustage_dict_2 = get_sustage_score_2(item_ean)
                 # matching
+                d_purchase = {}
                 for key in self.__dict__:
                     if key == 'organic_cert' and sustage_dict_2['raw']:
-                        self.__dict__[key] = True if sustage_dict_2['organic_cert'] else False
+                        d_purchase[key] = True if sustage_dict_2['organic_cert'] else False
                     elif key.endswith('_cert'):
                         for cert_descr in sustage_dict['certificates']:
                             key_set = re.findall(key[:-5], cert_descr)
-                            self.__dict__[key] = True if key_set else False
+                            d_purchase[key] = True if key_set else False
                     else:
                         if key in sustage_dict:
-                            self.__dict__[key] = sustage_dict[key]
+                            d_purchase[key] = sustage_dict[key]
                         elif key in sustage_dict_2:
-                            self.__dict__[key] = sustage_dict_2[key]
-            self.purchase_array.append(self.__dict__)
+                            d_purchase[key] = sustage_dict_2[key]
+            self.purchase_array.append(d_purchase)
 
 
 class Badges:
@@ -175,13 +176,12 @@ if __name__ == "__main__":
     key = '0187dc68f47e49e9b97fc765bfd56716'
     content_type = 'application/json'
 
-    receipt_data = ['6410405041548']
+    receipt_data = ['6410405041548', '2000507900009', '6410405194862', '6410402020263', '8851994513012']
 
     # we have data for one person for one purchase
     person = Person()
     purchase = Purchase(receipt_data)
     person.badges_update(purchase)
-    print("=" * 20)
     test(person)
     # purchase = Purchase(True, True, True, True)
     # person.badges_update(purchase)

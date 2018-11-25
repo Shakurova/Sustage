@@ -145,7 +145,7 @@ def get_sustage_score_2(product='7622300336738'):
         outputs['fish_free'] = product_category_check(data)[1]
         outputs['dairy_free'] = product_category_check(data)[2]
         outputs['plastic_bag_free'] = ean != '6410405187734'
-        outputs['packaged_food_good'] = data['results'][0]['pricingUnit'] != 'pussi' if 'pricingUnit' in data['results'][0] else None
+        outputs['package_free'] = data['results'][0]['pricingUnit'] != 'pussi' if 'pricingUnit' in data['results'][0] else None
         outputs['plastic_free_cert'] = 'Muovipakkausjäte' not in TX_KIEOMI
 
         outputs['organic_cert'] = any([True for o in TX_YMPMER if o in organic_list])

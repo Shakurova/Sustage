@@ -137,9 +137,9 @@ def generate_basket_from_eans(eans_list, store_id):
 
 
 # print(generate_random_basket(otaniemi_store_id, 10, get_products_from_store("K171", 1000, offset=0).keys()))
-
-print(generate_basket_from_eans(['2000528000009', '2000511100006', '6410405082657', 
-								 '2000600100009', '2000511700008'], otaniemi_store_id))
+#
+# print(generate_basket_from_eans(['2000528000009', '2000511100006', '6410405082657',
+# 								 '2000600100009', '2000511700008'], otaniemi_store_id))
 
 
 # 	{
