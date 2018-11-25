@@ -17,7 +17,7 @@ offset = None
 
 
 def get_products_from_store(store_id, limit, ean=None, offset=None):
-
+	
 	url = f'https://kesko.azure-api.net/v4/stores/{store_id_example}/products'
 
 	payload = {'limit': str(limit), 'offset': str(offset)}
